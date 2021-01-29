@@ -19,11 +19,13 @@ addLayer("c", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        let exp = new Decimal(1)
+        if (hasUpgrade(this.layer, 13)) exp = player[this.layer].points.plus(10).log10().pow(exp)
+        return exp
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "p", description: "C: Reset for code points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "c", description: "C: Reset for code points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     upgrades: {
         rows: 2,
@@ -37,9 +39,25 @@ addLayer("c", {
         12: {
             title: "Blue Light Glasses",
             description: "The light from your screen has hurt your eyes! You should try a nice pair of glasses. Doubles code point gain.",
-            cost: new Decimal(10),
+            cost: new Decimal(5),
             unlocked() {return hasUpgrade(this.layer, 11)},
             effect: 2,
+        },
+        13: {
+            title: "Moving Up In The World",
+            description: "Finally moving out of your Mom's basement, eh? Congrats. Code points boost code point gain.",
+            cost: new Decimal (20),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+            effect: 1,
+        },
+        14: {
+            title: "Prebuilt",
+            description: "An Alienware would be nice, but you're broke. You get a Lenovo. Code points boost lines of code gain.",
+            cost: new Decimal(50),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+            effect() {
+                return 1
+            },
         }
     },
     layerShown(){return true}
