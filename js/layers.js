@@ -34,7 +34,7 @@ addLayer("c", {
             title: "Get A New Monitor",
             description: "A new extra wide monitor, only for the best of coders. Doubles lines of code gain.",
             cost: new Decimal(2),
-            effect: 1,  
+            effect: 2,  
         },
         12: {
             title: "Blue Light Glasses",
@@ -52,12 +52,13 @@ addLayer("c", {
         },
         14: {
             title: "Prebuilt",
-            description: "An Alienware would be nice, but you're broke. You get a Lenovo. Code points boost lines of code gain.",
+            description: "An Alienware would be nice, but you're broke. You get a Lenovo. Lines of code gain boosts lines of code gain.",
             cost: new Decimal(50),
             unlocked() {return hasUpgrade(this.layer, 13)},
             effect() {
                 return 1
             },
+        
         }
     },
     layerShown(){return true}
